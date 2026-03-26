@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id          String       @id @default(uuid())
+  displayName String       @unique
+  createdAt   DateTime     @default(now())
+  logs        HotDogLog[]
+}
+
+model HotDogLog {
+  id        String   @id @default(uuid())
+  quantity  Int      @default(1)
+  photoPath String?
+  note      String?
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+}
