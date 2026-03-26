@@ -1,7 +1,5 @@
 import { cookies } from "next/headers";
 
-const ACCESS_CODE = process.env.ACCESS_CODE || "hotdog2026";
-
 export async function verifySession(): Promise<{ userId: string; displayName: string } | null> {
   const cookieStore = await cookies();
   const session = cookieStore.get("session");
@@ -14,5 +12,6 @@ export async function verifySession(): Promise<{ userId: string; displayName: st
 }
 
 export function verifyAccessCode(code: string): boolean {
-  return code === ACCESS_CODE;
+  const accessCode = process.env.ACCESS_CODE || "hotdog2026";
+  return code === accessCode;
 }
